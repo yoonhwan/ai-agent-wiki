@@ -1,27 +1,27 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LangChain Agent Skills AI 코딩 어시스턴트를 도메인 전문가로 만드는 법 · Jarvis Wiki</title><link rel="stylesheet" href="../assets/style.css"></head><body><main class="wrap"><header><a class="badge" href="../index.html?v=20260504-184235-KST">Jarvis Wiki / ai-agent</a><h1>LangChain Agent Skills AI 코딩 어시스턴트를 도메인 전문가로 만드는 법</h1><p class="muted">Public GitHub Pages export · full wiki body rendered · raw files excluded</p></header><h1>LangChain Agent Skills AI 코딩 어시스턴트를 도메인 전문가로 만드는 법</h1>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LangChain Agent Skills AI 코딩 어시스턴트를 도메인 전문가로 만드는 법 · Jarvis Wiki</title><link rel="stylesheet" href="../assets/style.css"></head><body><main class="wrap"><header><a class="badge" href="../index.html?v=20260504-203312-KST">Jarvis Wiki / ai-agent</a><h1>LangChain Agent Skills AI 코딩 어시스턴트를 도메인 전문가로 만드는 법</h1><p class="muted">Public GitHub Pages export · full wiki body rendered · raw files excluded</p></header><h1>LangChain Agent Skills AI 코딩 어시스턴트를 도메인 전문가로 만드는 법</h1>
 <blockquote>Source candidate from <code>News-Links/2026-02-16 LangChain Agent Skills - AI 코딩 어시스턴트를 도메인 전문가로.md</code></blockquote>
 <h2>Source Content</h2>
 <h1>LangChain Agent Skills: AI 코딩 어시스턴트를 도메인 전문가로 만드는 법</h1>
-<blockquote>**원문**: <a href="https://www.lubulabs.com/ai-blog/langchain-agent-skills">Agent Skills for LangChain: Making AI Assistants Context-Aware</a></blockquote>
-<blockquote>**출처**: Lubu Labs</blockquote>
-<blockquote>**날짜**: 2026-02-16</blockquote>
-<blockquote>**카테고리**: #AI/Agent #LangChain #LangGraph #개발도구</blockquote>
-<p>---</p>
+<blockquote><strong>원문</strong>: <a href="https://www.lubulabs.com/ai-blog/langchain-agent-skills">Agent Skills for LangChain: Making AI Assistants Context-Aware</a></blockquote>
+<blockquote><strong>출처</strong>: Lubu Labs</blockquote>
+<blockquote><strong>날짜</strong>: 2026-02-16</blockquote>
+<blockquote><strong>카테고리</strong>: #AI/Agent #LangChain #LangGraph #개발도구</blockquote>
+<hr>
 <h2>TL;DR</h2>
 <ul>
-<li>**langchain-agent-skills**: LangGraph 프로덕션 패턴을 모듈화된 재사용 가능한 &quot;스킬&quot;로 패키징한 오픈소스 프로젝트</li>
-<li>AI 코딩 어시스턴트(Claude Code, Cursor, Codex 등)가 **LangChain 도메인 전문가**처럼 동작하도록 만듦</li>
-<li>**Progressive Disclosure** 패턴으로 컨텍스트 윈도우 효율적 관리</li>
+<li><strong>langchain-agent-skills</strong>: LangGraph 프로덕션 패턴을 모듈화된 재사용 가능한 &quot;스킬&quot;로 패키징한 오픈소스 프로젝트</li>
+<li>AI 코딩 어시스턴트(Claude Code, Cursor, Codex 등)가 <strong>LangChain 도메인 전문가</strong>처럼 동작하도록 만듦</li>
+<li><strong>Progressive Disclosure</strong> 패턴으로 컨텍스트 윈도우 효율적 관리</li>
 </ul>
-<p>---</p>
+<hr>
 <h2>핵심 문제: 문서만으로는 부족하다</h2>
-<p>LangChain/LangGraph 문서는 훌륭하지만 **맥락적이지 않다**.</p>
-<p>| 기존 문서 워크플로우 | 스킬 워크플로우 |</p>
-<p>|---|---|</p>
-<p>| 문서에서 맞는 페이지 검색 | 어시스턴트가 태스크 컨텍스트 감지 |</p>
-<p>| 예제 읽고 관련 부분 찾기 | 적절한 스킬 자동 로드 |</p>
-<p>| 코드 스니펫을 내 상황에 맞게 수정 | 프로덕션 레디 패턴 즉시 제공 |</p>
-<p>| 설정 문제 수동 디버깅 | 스크립트/체크/구현 가이드 포함 |</p>
+<p>LangChain/LangGraph 문서는 훌륭하지만 <strong>맥락적이지 않다</strong>.</p>
+<table><thead><tr><th>기존 문서 워크플로우</th><th>스킬 워크플로우</th></tr></thead><tbody>
+<tr><td>문서에서 맞는 페이지 검색</td><td>어시스턴트가 태스크 컨텍스트 감지</td></tr>
+<tr><td>예제 읽고 관련 부분 찾기</td><td>적절한 스킬 자동 로드</td></tr>
+<tr><td>코드 스니펫을 내 상황에 맞게 수정</td><td>프로덕션 레디 패턴 즉시 제공</td></tr>
+<tr><td>설정 문제 수동 디버깅</td><td>스크립트/체크/구현 가이드 포함</td></tr>
+</tbody></table>
 <h3>반복되는 마찰 포인트</h3>
 <ul>
 <li><code>langgraph.json</code> 설정 스키마</li>
@@ -30,18 +30,22 @@
 <li>배포 모드 결정 (Cloud/Hybrid/Standalone)</li>
 <li>LangSmith 관측성 및 평가 설계</li>
 </ul>
-<p>---</p>
+<hr>
 <h2>Agent Skills 기술 아키텍처</h2>
 <h3>Progressive Disclosure 패턴 (3단계)</h3>
-<p>1. **Level 1 - 메타데이터** (항상 로드): 스킬 이름 + 설명 (~100단어). 시맨틱 매칭 트리거용. 최소 토큰 비용</p>
-<p>2. **Level 2 - SKILL.md** (트리거 시 로드): 워크플로우 가이드, 의사결정 트리, 퀵스타트 패턴. 500줄 이하</p>
-<p>3. **Level 3 - 번들 리소스** (온디맨드 로드): 상세 레퍼런스, 실행 가능 스크립트, 템플릿, 예제</p>
-<blockquote>**핵심**: 50+ 스킬도 성능 저하 없이 확장 가능 — 대부분 메타데이터 수준에서 대기</blockquote>
+<ol>
+<li><strong>Level 1 - 메타데이터</strong> (항상 로드): 스킬 이름 + 설명 (~100단어). 시맨틱 매칭 트리거용. 최소 토큰 비용</li>
+<li><strong>Level 2 - SKILL.md</strong> (트리거 시 로드): 워크플로우 가이드, 의사결정 트리, 퀵스타트 패턴. 500줄 이하</li>
+<li><strong>Level 3 - 번들 리소스</strong> (온디맨드 로드): 상세 레퍼런스, 실행 가능 스크립트, 템플릿, 예제</li>
+</ol>
+<blockquote><strong>핵심</strong>: 50+ 스킬도 성능 저하 없이 확장 가능 — 대부분 메타데이터 수준에서 대기</blockquote>
 <h3>스킬 구성 요소</h3>
-<p>1. **SKILL.md** — YAML frontmatter + 핵심 워크플로우 가이드</p>
-<p>2. **Scripts** — 프로젝트 스캐폴딩, 설정 검증, 자동화 스크립트</p>
-<p>3. **References** — 온디맨드 상세 문서</p>
-<p>---</p>
+<ol>
+<li><strong>SKILL.md</strong> — YAML frontmatter + 핵심 워크플로우 가이드</li>
+<li><strong>Scripts</strong> — 프로젝트 스캐폴딩, 설정 검증, 자동화 스크립트</li>
+<li><strong>References</strong> — 온디맨드 상세 문서</li>
+</ol>
+<hr>
 <h2>7가지 프로덕션 스킬</h2>
 <h3>A. langgraph-project-setup</h3>
 <ul>
@@ -50,15 +54,15 @@
 </ul>
 <h3>B. langgraph-agent-patterns</h3>
 <ul>
-<li>멀티에이전트 패턴: **Supervisor, Router, Orchestrator-Worker, Handoffs**</li>
+<li>멀티에이전트 패턴: <strong>Supervisor, Router, Orchestrator-Worker, Handoffs</strong></li>
 <li>패턴별 사용/회피 가이드 포함</li>
 </ul>
-<p>| 패턴 | 사용 시점 | 피할 때 |</p>
-<p>|---|---|---|</p>
-<p>| Supervisor | 중앙 코디네이터 필요 | 에이전트 병렬 실행 필요 |</p>
-<p>| Router | 정확히 1개 에이전트로 라우팅 | 여러 에이전트 기여 필요 |</p>
-<p>| Orchestrator-Worker | 병렬 실행 필요 | 순차 의존성 존재 |</p>
-<p>| Handoffs | 동적 에이전트 전환 | 흐름이 결정적 |</p>
+<table><thead><tr><th>패턴</th><th>사용 시점</th><th>피할 때</th></tr></thead><tbody>
+<tr><td>Supervisor</td><td>중앙 코디네이터 필요</td><td>에이전트 병렬 실행 필요</td></tr>
+<tr><td>Router</td><td>정확히 1개 에이전트로 라우팅</td><td>여러 에이전트 기여 필요</td></tr>
+<tr><td>Orchestrator-Worker</td><td>병렬 실행 필요</td><td>순차 의존성 존재</td></tr>
+<tr><td>Handoffs</td><td>동적 에이전트 전환</td><td>흐름이 결정적</td></tr>
+</tbody></table>
 <h3>C. langgraph-state-management</h3>
 <ul>
 <li>State 스키마, 리듀서, 체크포인터 (InMemory/SQLite/PostgreSQL/CosmosDB)</li>
@@ -82,12 +86,12 @@
 <ul>
 <li>배포 모드 선택 가이드 + <code>langgraph.json</code> 검증 + CI/CD 자동화 + 모니터링</li>
 </ul>
-<p>| 모델 | 사용 시점 | 인프라 |</p>
-<p>|---|---|---|</p>
-<p>| Cloud | 관리형 인프라 원할 때 | LangSmith 호스팅 |</p>
-<p>| Hybrid | 컴퓨팅 제어 필요 | 자체 인프라 + LangSmith API |</p>
-<p>| Standalone | 완전 제어 필요 | 셀프 호스팅 |</p>
-<p>---</p>
+<table><thead><tr><th>모델</th><th>사용 시점</th><th>인프라</th></tr></thead><tbody>
+<tr><td>Cloud</td><td>관리형 인프라 원할 때</td><td>LangSmith 호스팅</td></tr>
+<tr><td>Hybrid</td><td>컴퓨팅 제어 필요</td><td>자체 인프라 + LangSmith API</td></tr>
+<tr><td>Standalone</td><td>완전 제어 필요</td><td>셀프 호스팅</td></tr>
+</tbody></table>
+<hr>
 <h2>설치 및 사용법</h2>
 <h3>Claude Code</h3>
 <pre><code># 마켓플레이스 추가
@@ -101,17 +105,19 @@ Cursor Settings → Rules → Remote Rule (GitHub)
 URL: https://github.com/Lubu-Labs/langchain-agent-skills.git</code></pre>
 <h3>OpenAI Codex</h3>
 <pre><code>$skill-installer install langgraph-agent-patterns from Lubu-Labs/langchain-agent-skills</code></pre>
-<blockquote>스킬은 **구조화된 마크다운 + 스크립트** — 어떤 AI 어시스턴트에서든 사용 가능</blockquote>
-<p>---</p>
+<blockquote>스킬은 <strong>구조화된 마크다운 + 스크립트</strong> — 어떤 AI 어시스턴트에서든 사용 가능</blockquote>
+<hr>
 <h2>핵심 원칙 요약</h2>
-<p>1. **모듈식 지식**: 필요할 때만 로드되는 패턴/스크립트/예제</p>
-<p>2. **Progressive Disclosure**: 메타데이터는 가볍게, 상세 가이드는 온디맨드</p>
-<p>3. **프로덕션 퍼스트 + 커뮤니티 주도**: 실전 검증된 워크플로우 + 오픈소스 기여</p>
-<p>---</p>
+<ol>
+<li><strong>모듈식 지식</strong>: 필요할 때만 로드되는 패턴/스크립트/예제</li>
+<li><strong>Progressive Disclosure</strong>: 메타데이터는 가볍게, 상세 가이드는 온디맨드</li>
+<li><strong>프로덕션 퍼스트 + 커뮤니티 주도</strong>: 실전 검증된 워크플로우 + 오픈소스 기여</li>
+</ol>
+<hr>
 <h2>링크</h2>
 <ul>
-<li>**GitHub**: <a href="https://github.com/Lubu-Labs/langchain-agent-skills">Lubu-Labs/langchain-agent-skills</a></li>
-<li>**원문**: <a href="https://www.lubulabs.com/ai-blog/langchain-agent-skills">lubulabs.com/ai-blog/langchain-agent-skills</a></li>
+<li><strong>GitHub</strong>: <a href="https://github.com/Lubu-Labs/langchain-agent-skills">Lubu-Labs/langchain-agent-skills</a></li>
+<li><strong>원문</strong>: <a href="https://www.lubulabs.com/ai-blog/langchain-agent-skills">lubulabs.com/ai-blog/langchain-agent-skills</a></li>
 </ul>
-<p>---</p>
+<hr>
 <p>#AI/Agent #LangChain #LangGraph #LangSmith #AgentSkills #ProgressiveDisclosure #프로덕션 #오픈소스</p><section class="sourcebox"><h2>Source Trace</h2><ul><li><code>News-Links/2026-02-16 LangChain Agent Skills - AI 코딩 어시스턴트를 도메인 전문가로.md</code></li></ul></section><div class="footer">Generated from Obsidian Wikis/ai-agent. Raw markdown files are not included in this repository; their reviewed body content is rendered into these public wiki pages.</div></main></body></html>

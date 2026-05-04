@@ -1,10 +1,10 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>에이전틱 풀스택 바이브코딩 토탈 가이드 · Jarvis Wiki</title><link rel="stylesheet" href="../assets/style.css"></head><body><main class="wrap"><header><a class="badge" href="../index.html?v=20260504-184235-KST">Jarvis Wiki / ai-agent</a><h1>에이전틱 풀스택 바이브코딩 토탈 가이드</h1><p class="muted">Public GitHub Pages export · full wiki body rendered · raw files excluded</p></header><h1>에이전틱 풀스택 바이브코딩 토탈 가이드</h1>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>에이전틱 풀스택 바이브코딩 토탈 가이드 · Jarvis Wiki</title><link rel="stylesheet" href="../assets/style.css"></head><body><main class="wrap"><header><a class="badge" href="../index.html?v=20260504-203312-KST">Jarvis Wiki / ai-agent</a><h1>에이전틱 풀스택 바이브코딩 토탈 가이드</h1><p class="muted">Public GitHub Pages export · full wiki body rendered · raw files excluded</p></header><h1>에이전틱 풀스택 바이브코딩 토탈 가이드</h1>
 <blockquote>Source candidate from <code>News-Links/2026-02-17 에이전틱 풀스택 바이브코딩 토탈 가이드.md</code></blockquote>
 <h2>Source Content</h2>
 <h1>에이전틱 풀스택 바이브코딩 토탈 가이드</h1>
-<blockquote>**Beads + Gas Town + Ralphy + CodeRabbit + Langfuse 통합 스택**</blockquote>
+<blockquote><strong>Beads + Gas Town + Ralphy + CodeRabbit + Langfuse 통합 스택</strong></blockquote>
 <p>문서 버전: 2026-02-17 | 대상: 멀티 에이전트 병렬 개발 환경 구축을 위한 종합 운영 가이드</p>
-<p>---</p>
+<hr>
 <h2>목차</h2>
 <p>1.스택 개요 및 아키텍처</p>
 <p>2.도구별 상세 분석</p>
@@ -15,18 +15,18 @@
 <p>7.운영 가이드</p>
 <p>8.실전 시뮬레이션: SaaS 댓글 기능 구현</p>
 <p>9.트러블슈팅 및 FAQ</p>
-<p>---</p>
+<hr>
 <h2>1. 스택 개요 및 아키텍처</h2>
 <h3>1.1 핵심 철학</h3>
 <p>본 스택은 &quot;워크트리로 시작해 멀티 코딩툴을 멀티 에이전트로 역할에 맞게 돌리고, 모니터링하고, 결과를 받아내는 풀스택 바이브코딩&quot; 을 실현한다. 개발 목표를 조사하고 세분화하여 스몰 태스크로 분해한 뒤, 멀티 에이전트로 병렬 진행시키고, 완료되면 PR 확인 후 머지하여 태스크를 마무리하는 일련의 작업 루프를 통해 최종 결과를 구현하는 구조이다.</p>
 <h3>1.2 5개 도구의 역할 분담</h3>
-<p>| 계층 | 도구 | CLI | 역할 | 비유 |</p>
-<p>| --- | --- | --- | --- | --- |</p>
-<p>| 태스크 관리 | Beads | bd | Git-backed 이슈/태스크 추적, 에이전트 메모리 | 두뇌의 기억 |</p>
-<p>| 오케스트레이션 | Gas Town | gt | Mayor 중심 멀티 에이전트 조율, Convoy 배치 관리 | 지휘관 |</p>
-<p>| 멀티엔진 실행 | Ralphy | ralphy | 8개 AI 엔진 병렬 실행, 워크트리 격리 | 병사들 |</p>
-<p>| 코드 리뷰 | CodeRabbit | gtr + SaaS | PR 자동 리뷰, 워크트리 관리, Issue Planner | 검수관 |</p>
-<p>| 모니터링 | Langfuse | SDK/API | LLM 트레이싱, 비용 추적, 품질 평가 | 감시탑 |</p>
+<table><thead><tr><th>계층</th><th>도구</th><th>CLI</th><th>역할</th><th>비유</th></tr></thead><tbody>
+<tr><td>태스크 관리</td><td>Beads</td><td>bd</td><td>Git-backed 이슈/태스크 추적, 에이전트 메모리</td><td>두뇌의 기억</td></tr>
+<tr><td>오케스트레이션</td><td>Gas Town</td><td>gt</td><td>Mayor 중심 멀티 에이전트 조율, Convoy 배치 관리</td><td>지휘관</td></tr>
+<tr><td>멀티엔진 실행</td><td>Ralphy</td><td>ralphy</td><td>8개 AI 엔진 병렬 실행, 워크트리 격리</td><td>병사들</td></tr>
+<tr><td>코드 리뷰</td><td>CodeRabbit</td><td>gtr + SaaS</td><td>PR 자동 리뷰, 워크트리 관리, Issue Planner</td><td>검수관</td></tr>
+<tr><td>모니터링</td><td>Langfuse</td><td>SDK/API</td><td>LLM 트레이싱, 비용 추적, 품질 평가</td><td>감시탑</td></tr>
+</tbody></table>
 <h3>1.3 최종 아키텍처 다이어그램</h3>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │                    Gas Town Mayor (Claude Code)              │
@@ -73,29 +73,29 @@
 <h3>1.4 통신 프로토콜 — JSONL 기반 상태 머신</h3>
 <p>모든 에이전트 간 통신은 JSON Lines (JSONL) 파일 기반 상태 머신 방식을 따른다. 각 에이전트 세션은 3개의 JSONL 파일을 보유하며, 팀 리더(Mayor)가 response.jsonl의 status + next_actor 필드를 읽어 다음 행동할 에이전트를 결정하는 상태 기계(State Machine)로 동작한다.</p>
 <h4>1.4.1 3파일 구조</h4>
-<p>| 파일 | 형식 | 역할 | 작성자 | 읽는 자 |</p>
-<p>| --- | --- | --- | --- | --- |</p>
-<p>| query.jsonl | JSONL | 작업 요청 (상위 → 하위) | Mayor / 팀 리더 | 실행 에이전트 |</p>
-<p>| response.jsonl | JSONL | 작업 결과 + 상태 (하위 → 상위) | 실행 에이전트 | Mayor / 팀 리더 |</p>
-<p>| history.jsonl | JSONL | 통신 이력 로그 (전체 추적) | 양쪽 모두 | 양쪽 모두 |</p>
+<table><thead><tr><th>파일</th><th>형식</th><th>역할</th><th>작성자</th><th>읽는 자</th></tr></thead><tbody>
+<tr><td>query.jsonl</td><td>JSONL</td><td>작업 요청 (상위 → 하위)</td><td>Mayor / 팀 리더</td><td>실행 에이전트</td></tr>
+<tr><td>response.jsonl</td><td>JSONL</td><td>작업 결과 + 상태 (하위 → 상위)</td><td>실행 에이전트</td><td>Mayor / 팀 리더</td></tr>
+<tr><td>history.jsonl</td><td>JSONL</td><td>통신 이력 로그 (전체 추적)</td><td>양쪽 모두</td><td>양쪽 모두</td></tr>
+</tbody></table>
 <h4>1.4.2 query.jsonl 레코드 스키마</h4>
 <pre><code>{&quot;id&quot;:&quot;q-001&quot;,&quot;timestamp&quot;:&quot;2026-02-17T10:00:00Z&quot;,&quot;from&quot;:&quot;mayor&quot;,&quot;to&quot;:&quot;agent-implement-1&quot;,&quot;bead_id&quot;:&quot;gt-001&quot;,&quot;status&quot;:&quot;QUEUED&quot;,&quot;task&quot;:{&quot;title&quot;:&quot;Prisma Comment 모델 스키마 정의&quot;,&quot;description&quot;:&quot;Comment 모델 추가, User/Post 관계 설정, 마이그레이션&quot;,&quot;engine&quot;:&quot;claude&quot;,&quot;model&quot;:&quot;sonnet&quot;,&quot;effort&quot;:&quot;high&quot;,&quot;branch&quot;:&quot;feat/comment-model&quot;,&quot;worktree&quot;:&quot;/tmp/wt/agent-1&quot;},&quot;context&quot;:{&quot;prd_path&quot;:&quot;PRD-comments.yaml&quot;,&quot;dependencies&quot;:[],&quot;rules&quot;:[&quot;use TypeScript strict mode&quot;]},&quot;constraints&quot;:{&quot;max_rounds&quot;:3,&quot;timeout_minutes&quot;:30}}</code></pre>
 <h4>1.4.3 response.jsonl 레코드 스키마</h4>
 <pre><code>{&quot;id&quot;:&quot;r-001&quot;,&quot;timestamp&quot;:&quot;2026-02-17T10:15:00Z&quot;,&quot;query_id&quot;:&quot;q-001&quot;,&quot;from&quot;:&quot;agent-implement-1&quot;,&quot;to&quot;:&quot;mayor&quot;,&quot;bead_id&quot;:&quot;gt-001&quot;,&quot;status&quot;:&quot;PENDING_REVIEW&quot;,&quot;next_actor&quot;:&quot;agent-reviewer&quot;,&quot;result&quot;:{&quot;success&quot;:true,&quot;pr_url&quot;:&quot;https://github.com/you/repo/pull/42&quot;,&quot;branch&quot;:&quot;feat/comment-model&quot;,&quot;files_changed&quot;:[&quot;prisma/schema.prisma&quot;,&quot;prisma/migrations/001_comment.sql&quot;],&quot;tokens_in&quot;:12500,&quot;tokens_out&quot;:8300,&quot;cost_usd&quot;:0.45,&quot;duration_seconds&quot;:180},&quot;round&quot;:1,&quot;message&quot;:&quot;Comment 모델 스키마 정의 완료. Peer Review 요청.&quot;}</code></pre>
 <h4>1.4.4 상태 코드 (11개 ) — 상태 머신 전이 규칙</h4>
-<p>| 상태 | 방향 | 설명 | 다음 가능 상태 |</p>
-<p>| --- | --- | --- | --- |</p>
-<p>| QUEUED | 상위 → 하위 | 작업 대기열 추가 | IN_PROGRESS |</p>
-<p>| IN_PROGRESS | 하위 → 상위 | 작업 수행 중 | PENDING_REVIEW, ESCALATED |</p>
-<p>| PENDING_REVIEW | 개발자 → 리뷰어 | 코드 리뷰 요청 | APPROVED, REVISION_REQUESTED |</p>
-<p>| REVISION_REQUESTED | 리뷰어 → 개발자 | 수정 요청 (round +1) | IN_PROGRESS |</p>
-<p>| APPROVED | 리뷰어 → 팀 리더 | 동료 리뷰 통과 | PENDING_FINAL_QA |</p>
-<p>| PENDING_FINAL_QA | 팀 리더 → QA | 최종 품질 검증 요청 | FINAL_QA_PASSED, FINAL_QA_FAILED |</p>
-<p>| FINAL_QA_PASSED | QA → 팀 리더 | 모든 검증 통과 | WORKFLOW_COMPLETE |</p>
-<p>| FINAL_QA_FAILED | QA → 팀 리더 | 검증 실패, 재지시 필요 | QUEUED (재할당) |</p>
-<p>| ESCALATED | 자동 | max_rounds 초과 시 아키텍트 개입 | QUEUED (재설계 후) |</p>
-<p>| OVERRIDE | 팀 리더 → 임의 | 강제 개입 (수동 제어) | 모든 상태 |</p>
-<p>| WORKFLOW_COMPLETE | 팀 리더 → WF 매니저 | 작업 완료 | (종료) |</p>
+<table><thead><tr><th>상태</th><th>방향</th><th>설명</th><th>다음 가능 상태</th></tr></thead><tbody>
+<tr><td>QUEUED</td><td>상위 → 하위</td><td>작업 대기열 추가</td><td>IN_PROGRESS</td></tr>
+<tr><td>IN_PROGRESS</td><td>하위 → 상위</td><td>작업 수행 중</td><td>PENDING_REVIEW, ESCALATED</td></tr>
+<tr><td>PENDING_REVIEW</td><td>개발자 → 리뷰어</td><td>코드 리뷰 요청</td><td>APPROVED, REVISION_REQUESTED</td></tr>
+<tr><td>REVISION_REQUESTED</td><td>리뷰어 → 개발자</td><td>수정 요청 (round +1)</td><td>IN_PROGRESS</td></tr>
+<tr><td>APPROVED</td><td>리뷰어 → 팀 리더</td><td>동료 리뷰 통과</td><td>PENDING<em>FINAL</em>QA</td></tr>
+<tr><td>PENDING<em>FINAL</em>QA</td><td>팀 리더 → QA</td><td>최종 품질 검증 요청</td><td>FINAL<em>QA</em>PASSED, FINAL<em>QA</em>FAILED</td></tr>
+<tr><td>FINAL<em>QA</em>PASSED</td><td>QA → 팀 리더</td><td>모든 검증 통과</td><td>WORKFLOW_COMPLETE</td></tr>
+<tr><td>FINAL<em>QA</em>FAILED</td><td>QA → 팀 리더</td><td>검증 실패, 재지시 필요</td><td>QUEUED (재할당)</td></tr>
+<tr><td>ESCALATED</td><td>자동</td><td>max_rounds 초과 시 아키텍트 개입</td><td>QUEUED (재설계 후)</td></tr>
+<tr><td>OVERRIDE</td><td>팀 리더 → 임의</td><td>강제 개입 (수동 제어)</td><td>모든 상태</td></tr>
+<tr><td>WORKFLOW_COMPLETE</td><td>팀 리더 → WF 매니저</td><td>작업 완료</td><td>(종료)</td></tr>
+</tbody></table>
 <h4>1.4.5 상태 전이 다이어그램</h4>
 <pre><code>                          ┌──────────────────────────────────────────┐
                           │            OVERRIDE (강제 개입)           │
@@ -118,7 +118,7 @@
                          (재할당 / 재설계)</code></pre>
 <h4>1.4.6 핵심 루프 2개</h4>
 <p>내부 루프 (Peer Review Loop):</p>
-<p>개발 에이전트와 리뷰 에이전트 간의 코드 리뷰 사이클이다. PENDING_REVIEW ↔ REVISION_REQUESTED 상태를 반복하며, max_rounds를 초과하면 자동으로 ESCALATED로 전이되어 아키텍트(Mayor)가 개입한다.</p>
+<p>개발 에이전트와 리뷰 에이전트 간의 코드 리뷰 사이클이다. PENDING<em>REVIEW ↔ REVISION</em>REQUESTED 상태를 반복하며, max_rounds를 초과하면 자동으로 ESCALATED로 전이되어 아키텍트(Mayor)가 개입한다.</p>
 <pre><code>개발 에이전트 ──(PENDING_REVIEW)──→ 리뷰 에이전트
      ▲                                    │
      │                                    ▼
@@ -131,26 +131,26 @@
                     └──→ FINAL_QA_FAILED ──→ QUEUED (재할당)</code></pre>
 <h4>1.4.7 next_actor 필드와 상태 머신 라우팅</h4>
 <p>response.jsonl의 next_actor 필드가 상태 머신의 라우팅 키이다. 팀 리더(Mayor)는 이 필드를 읽어 다음에 어떤 에이전트가 행동해야 하는지 결정한다.</p>
-<p>| status | next_actor 예시 | Mayor의 행동 |</p>
-<p>| --- | --- | --- |</p>
-<p>| QUEUED | agent-implement-1 | 해당 에이전트에 query.jsonl 작성 |</p>
-<p>| IN_PROGRESS | self | 대기 (폴링) |</p>
-<p>| PENDING_REVIEW | agent-reviewer | 리뷰어에게 query.jsonl 작성 |</p>
-<p>| REVISION_REQUESTED | agent-implement-1 | 개발자에게 수정 query.jsonl 작성 |</p>
-<p>| APPROVED | mayor | Mayor가 Final QA 단계로 전환 |</p>
-<p>| PENDING_FINAL_QA | agent-qa-e2e | QA 에이전트에게 query.jsonl 작성 |</p>
-<p>| FINAL_QA_PASSED | mayor | Mayor가 머지 + WORKFLOW_COMPLETE |</p>
-<p>| FINAL_QA_FAILED | mayor | Mayor가 원인 분석 후 재할당 |</p>
-<p>| ESCALATED | mayor | Mayor가 아키텍트로서 재설계 |</p>
-<p>| OVERRIDE | (지정) | Mayor가 강제 지정한 에이전트 |</p>
-<p>| WORKFLOW_COMPLETE | workflow-manager | 상위 워크플로우 매니저에 보고 |</p>
+<table><thead><tr><th>status</th><th>next_actor 예시</th><th>Mayor의 행동</th></tr></thead><tbody>
+<tr><td>QUEUED</td><td>agent-implement-1</td><td>해당 에이전트에 query.jsonl 작성</td></tr>
+<tr><td>IN_PROGRESS</td><td>self</td><td>대기 (폴링)</td></tr>
+<tr><td>PENDING_REVIEW</td><td>agent-reviewer</td><td>리뷰어에게 query.jsonl 작성</td></tr>
+<tr><td>REVISION_REQUESTED</td><td>agent-implement-1</td><td>개발자에게 수정 query.jsonl 작성</td></tr>
+<tr><td>APPROVED</td><td>mayor</td><td>Mayor가 Final QA 단계로 전환</td></tr>
+<tr><td>PENDING<em>FINAL</em>QA</td><td>agent-qa-e2e</td><td>QA 에이전트에게 query.jsonl 작성</td></tr>
+<tr><td>FINAL<em>QA</em>PASSED</td><td>mayor</td><td>Mayor가 머지 + WORKFLOW_COMPLETE</td></tr>
+<tr><td>FINAL<em>QA</em>FAILED</td><td>mayor</td><td>Mayor가 원인 분석 후 재할당</td></tr>
+<tr><td>ESCALATED</td><td>mayor</td><td>Mayor가 아키텍트로서 재설계</td></tr>
+<tr><td>OVERRIDE</td><td>(지정)</td><td>Mayor가 강제 지정한 에이전트</td></tr>
+<tr><td>WORKFLOW_COMPLETE</td><td>workflow-manager</td><td>상위 워크플로우 매니저에 보고</td></tr>
+</tbody></table>
 <h4>1.4.8 history.jsonl 레코드 예시</h4>
 <p>history.jsonl은 모든 query.jsonl과 response.jsonl 레코드를 시간순으로 누적 기록한다. 에이전트 크래시 후 컨텍스트 복구 시 이 파일을 읽어 전체 이력을 재구성한다.</p>
 <pre><code>{&quot;type&quot;:&quot;query&quot;,&quot;id&quot;:&quot;q-001&quot;,&quot;timestamp&quot;:&quot;2026-02-17T10:00:00Z&quot;,&quot;from&quot;:&quot;mayor&quot;,&quot;to&quot;:&quot;agent-implement-1&quot;,&quot;status&quot;:&quot;QUEUED&quot;,&quot;bead_id&quot;:&quot;gt-001&quot;,&quot;summary&quot;:&quot;Prisma Comment 모델 스키마 정의&quot;}
 {&quot;type&quot;:&quot;response&quot;,&quot;id&quot;:&quot;r-001&quot;,&quot;timestamp&quot;:&quot;2026-02-17T10:15:00Z&quot;,&quot;from&quot;:&quot;agent-implement-1&quot;,&quot;to&quot;:&quot;mayor&quot;,&quot;status&quot;:&quot;PENDING_REVIEW&quot;,&quot;next_actor&quot;:&quot;agent-reviewer&quot;,&quot;bead_id&quot;:&quot;gt-001&quot;,&quot;summary&quot;:&quot;구현 완료, PR #42 생성&quot;}
 {&quot;type&quot;:&quot;query&quot;,&quot;id&quot;:&quot;q-002&quot;,&quot;timestamp&quot;:&quot;2026-02-17T10:16:00Z&quot;,&quot;from&quot;:&quot;mayor&quot;,&quot;to&quot;:&quot;agent-reviewer&quot;,&quot;status&quot;:&quot;PENDING_REVIEW&quot;,&quot;bead_id&quot;:&quot;gt-001&quot;,&quot;summary&quot;:&quot;PR #42 코드 리뷰 요청&quot;}
 {&quot;type&quot;:&quot;response&quot;,&quot;id&quot;:&quot;r-002&quot;,&quot;timestamp&quot;:&quot;2026-02-17T10:25:00Z&quot;,&quot;from&quot;:&quot;agent-reviewer&quot;,&quot;to&quot;:&quot;mayor&quot;,&quot;status&quot;:&quot;APPROVED&quot;,&quot;next_actor&quot;:&quot;mayor&quot;,&quot;bead_id&quot;:&quot;gt-001&quot;,&quot;summary&quot;:&quot;리뷰 통과, 머지 가능&quot;}</code></pre>
-<p>---</p>
+<hr>
 <h2>2. 도구별 상세 분석</h2>
 <h3>2.1 Beads (bd) — 에이전트 메모리 &amp; 태스크 관리</h3>
 <p>&quot;AI 코딩 에이전트가 실제로 사용하고 싶어하는 TODO 시스템&quot; — Steve Yegge</p>
@@ -161,54 +161,54 @@
 <li>적응형 ID 시스템: 짧은 접두사 기반 ID (예: gt-abc12)로 에이전트가 쉽게 참조</li>
 <li>bd prime: 세션 시작 시 ~1-2k 토큰의 컨텍스트를 자동 주입하여 에이전트가 현재 상태를 즉시 파악</li>
 <li>Git-backed: 모든 변경이 Git으로 추적되어 히스토리 완전 보존</li>
-<p>CLI 명령어 전체 목록:</p>
 </ul>
-<p>| 명령어 | 기능 | 사용 예시 |</p>
-<p>| --- | --- | --- |</p>
-<p>| bd init | 프로젝트에 Beads 초기화 | bd init --quiet |</p>
-<p>| bd create | 새 이슈/태스크 생성 | bd create &quot;댓글 API 구현&quot; |</p>
-<p>| bd ready | 작업 가능한 태스크 목록 | bd ready |</p>
-<p>| bd prime | 세션 컨텍스트 주입 | bd prime (자동 훅으로 실행) |</p>
-<p>| bd show | 이슈 상세 보기 | bd show gt-abc12 |</p>
-<p>| bd update | 이슈 상태 업데이트 | bd update gt-abc12 --status done |</p>
-<p>| bd stats | 통계 확인 | bd stats --actor=gastown/polecats/* |</p>
-<p>| bd doctor | 진단 및 자동 수정 | bd doctor --fix |</p>
-<p>| bd admin compact | 데이터 압축 | bd admin compact |</p>
-<p>| bd setup &lt;editor&gt; | 에디터 통합 설정 | bd setup claude |</p>
+<p>CLI 명령어 전체 목록:</p>
+<table><thead><tr><th>명령어</th><th>기능</th><th>사용 예시</th></tr></thead><tbody>
+<tr><td>bd init</td><td>프로젝트에 Beads 초기화</td><td>bd init --quiet</td></tr>
+<tr><td>bd create</td><td>새 이슈/태스크 생성</td><td>bd create &quot;댓글 API 구현&quot;</td></tr>
+<tr><td>bd ready</td><td>작업 가능한 태스크 목록</td><td>bd ready</td></tr>
+<tr><td>bd prime</td><td>세션 컨텍스트 주입</td><td>bd prime (자동 훅으로 실행)</td></tr>
+<tr><td>bd show</td><td>이슈 상세 보기</td><td>bd show gt-abc12</td></tr>
+<tr><td>bd update</td><td>이슈 상태 업데이트</td><td>bd update gt-abc12 --status done</td></tr>
+<tr><td>bd stats</td><td>통계 확인</td><td>bd stats --actor=gastown/polecats/*</td></tr>
+<tr><td>bd doctor</td><td>진단 및 자동 수정</td><td>bd doctor --fix</td></tr>
+<tr><td>bd admin compact</td><td>데이터 압축</td><td>bd admin compact</td></tr>
+<tr><td>bd setup &lt;editor&gt;</td><td>에디터 통합 설정</td><td>bd setup claude</td></tr>
+</tbody></table>
 <p>컴포넌트 구성:</p>
-<p>| 컴포넌트 | 설명 | 필요 시점 |</p>
-<p>| --- | --- | --- |</p>
-<p>| bd CLI | 핵심 CLI 도구 | 항상 (기반) |</p>
-<p>| Claude Code Plugin | 슬래시 커맨드 + UX 향상 | /beads:ready, /beads:create 사용 시 |</p>
-<p>| MCP Server (beads-mcp) | MCP 인터페이스 | Claude Desktop, Amp 등 MCP 전용 환경 |</p>
-<p>---</p>
+<table><thead><tr><th>컴포넌트</th><th>설명</th><th>필요 시점</th></tr></thead><tbody>
+<tr><td>bd CLI</td><td>핵심 CLI 도구</td><td>항상 (기반)</td></tr>
+<tr><td>Claude Code Plugin</td><td>슬래시 커맨드 + UX 향상</td><td>/beads:ready, /beads:create 사용 시</td></tr>
+<tr><td>MCP Server (beads-mcp)</td><td>MCP 인터페이스</td><td>Claude Desktop, Amp 등 MCP 전용 환경</td></tr>
+</tbody></table>
+<hr>
 <h3>2.2 Gas Town (gt) — 멀티 에이전트 오케스트레이터</h3>
 <p>&quot;AI 에이전트 작업을 구조화된 데이터로 다루는 오케스트레이션 레이어&quot; — Steve Yegge</p>
 <p>개요: Gas Town은 20~30개 이상의 AI 에이전트를 동시에 조율하는 워크스페이스 매니저이다. Mayor(시장)가 전체를 지휘하고, Polecat(임시 워커)이 격리된 워크트리에서 실제 작업을 수행하며, Convoy(호송대)가 배치 작업을 추적한다.</p>
 <p>역할 체계 (Role Taxonomy):</p>
-<p>| 역할 | 설명 | 생명주기 |</p>
-<p>| --- | --- | --- |</p>
-<p>| Mayor | 전역 조율자, mayor/ 에 위치 | 싱글톤, 영속 |</p>
-<p>| Deacon | 백그라운드 감독 데몬 (워치독 체인) | 싱글톤, 영속 |</p>
-<p>| Witness | Rig별 Polecat 생명주기 관리자 | Rig당 1개, 영속 |</p>
-<p>| Refinery | Rig별 머지 큐 처리기 | Rig당 1개, 영속 |</p>
-<p>| Polecat | 임시 워커 (자체 워크트리 보유) | 일시적, Witness 관리 |</p>
-<p>| Crew | 영속 워커 (자체 클론 보유) | 장기, 사용자 관리 |</p>
-<p>| Dog | Deacon 헬퍼 (인프라 태스크) | 일시적, Deacon 관리 |</p>
+<table><thead><tr><th>역할</th><th>설명</th><th>생명주기</th></tr></thead><tbody>
+<tr><td>Mayor</td><td>전역 조율자, mayor/ 에 위치</td><td>싱글톤, 영속</td></tr>
+<tr><td>Deacon</td><td>백그라운드 감독 데몬 (워치독 체인)</td><td>싱글톤, 영속</td></tr>
+<tr><td>Witness</td><td>Rig별 Polecat 생명주기 관리자</td><td>Rig당 1개, 영속</td></tr>
+<tr><td>Refinery</td><td>Rig별 머지 큐 처리기</td><td>Rig당 1개, 영속</td></tr>
+<tr><td>Polecat</td><td>임시 워커 (자체 워크트리 보유)</td><td>일시적, Witness 관리</td></tr>
+<tr><td>Crew</td><td>영속 워커 (자체 클론 보유)</td><td>장기, 사용자 관리</td></tr>
+<tr><td>Dog</td><td>Deacon 헬퍼 (인프라 태스크)</td><td>일시적, Deacon 관리</td></tr>
+</tbody></table>
 <p>핵심 CLI 명령어:</p>
-<p>| 명령어 | 기능 | 사용 예시 |</p>
-<p>| --- | --- | --- |</p>
-<p>| gt install | 워크스페이스 초기화 | gt install ~/gt --git |</p>
-<p>| gt rig add | 프로젝트(Rig) 추가 | gt rig add myapp <a href="https://github.com/you/repo.git">https://github.com/you/repo.git</a> |</p>
-<p>| gt crew add | Crew 멤버 추가 | gt crew add joe --rig myapp |</p>
-<p>| gt mayor attach | Mayor 모드 진입 | gt mayor attach |</p>
-<p>| gt sling | Polecat에 작업 할당 | gt sling gt-abc myapp --model=claude-sonnet |</p>
-<p>| gt convoy create | 작업 배치 생성 | gt convoy create &quot;Feature X&quot; gt-abc gt-def --notify |</p>
-<p>| gt convoy status | Convoy 진행 상황 | gt convoy status hq-cv-abc |</p>
-<p>| gt convoy list | 활성 Convoy 목록 | gt convoy list |</p>
-<p>| gt worktree | 크로스 Rig 워크트리 | gt worktree beads |</p>
-<p>| gt rig list | 등록된 Rig 목록 | gt rig list |</p>
-<p>| gt agents | 에이전트 로스터 확인 | gt agents |</p>
+<table><thead><tr><th>명령어</th><th>기능</th><th>사용 예시</th></tr></thead><tbody>
+<tr><td>gt install</td><td>워크스페이스 초기화</td><td>gt install ~/gt --git</td></tr>
+<tr><td>gt rig add</td><td>프로젝트(Rig) 추가</td><td>gt rig add myapp <a href="https://github.com/you/repo.git">https://github.com/you/repo.git</a></td></tr>
+<tr><td>gt crew add</td><td>Crew 멤버 추가</td><td>gt crew add joe --rig myapp</td></tr>
+<tr><td>gt mayor attach</td><td>Mayor 모드 진입</td><td>gt mayor attach</td></tr>
+<tr><td>gt sling</td><td>Polecat에 작업 할당</td><td>gt sling gt-abc myapp --model=claude-sonnet</td></tr>
+<tr><td>gt convoy create</td><td>작업 배치 생성</td><td>gt convoy create &quot;Feature X&quot; gt-abc gt-def --notify</td></tr>
+<tr><td>gt convoy status</td><td>Convoy 진행 상황</td><td>gt convoy status hq-cv-abc</td></tr>
+<tr><td>gt convoy list</td><td>활성 Convoy 목록</td><td>gt convoy list</td></tr>
+<tr><td>gt worktree</td><td>크로스 Rig 워크트리</td><td>gt worktree beads</td></tr>
+<tr><td>gt rig list</td><td>등록된 Rig 목록</td><td>gt rig list</td></tr>
+<tr><td>gt agents</td><td>에이전트 로스터 확인</td><td>gt agents</td></tr>
+</tbody></table>
 <p>멀티 모델 지원 (A/B 테스팅 ):</p>
 <p>Gas Town은 gt sling 명령의 --model 플래그를 통해 태스크별로 다른 모델을 배정할 수 있다. 단, 이는 같은 엔진(Claude Code) 내에서의 모델 변경(sonnet vs opus)이며, 엔진 자체 변경(Claude → Gemini → OpenCode)은 Ralphy가 담당한다.</p>
 <pre><code># 같은 엔진, 다른 모델 (Gas Town 네이티브)
@@ -219,42 +219,42 @@ gt sling gt-def gastown --model=claude-opus
 bd stats --actor=gastown/polecats/* --group-by=model</code></pre>
 <p>Propulsion Principle (추진 원칙):</p>
 <p>&quot;If you find something on your hook, YOU RUN IT.&quot;훅에 걸린 작업이 있으면, 즉시 실행한다. 확인을 기다리지 않는다. Gas Town은 증기 엔진이고, 에이전트는 피스톤이다.</p>
-<p>---</p>
+<hr>
 <h3>2.3 Ralphy — 멀티엔진 병렬 실행기</h3>
 <p>&quot;Autonomous AI coding loop. Runs AI agents on tasks until done.&quot;</p>
 <p>개요: Ralphy는 8개 AI 코딩 엔진을 자유롭게 선택하여 태스크를 병렬 실행하는 CLI 도구이다. 각 에이전트는 격리된 Git 워크트리에서 독립적으로 작업하며, PRD(Product Requirements Document) 기반으로 태스크 목록을 순회하며 완료될 때까지 루프를 돈다.</p>
 <p>지원 엔진 (8개):</p>
-<p>| 엔진 | CLI 명령 | 권한 플래그 | 출력 |</p>
-<p>| --- | --- | --- | --- |</p>
-<p>| Claude Code | claude | --dangerously-skip-permissions | tokens + cost |</p>
-<p>| OpenCode | opencode | full-auto | tokens + cost |</p>
-<p>| Codex | codex | N/A | tokens |</p>
-<p>| Cursor | agent | --force | duration |</p>
-<p>| Qwen | qwen | --approval-mode yolo | tokens |</p>
-<p>| Factory Droid | droid exec | --auto medium | duration |</p>
-<p>| GitHub Copilot | copilot | --yolo | tokens |</p>
-<p>| Gemini CLI | gemini | --yolo | tokens + cost |</p>
+<table><thead><tr><th>엔진</th><th>CLI 명령</th><th>권한 플래그</th><th>출력</th></tr></thead><tbody>
+<tr><td>Claude Code</td><td>claude</td><td>--dangerously-skip-permissions</td><td>tokens + cost</td></tr>
+<tr><td>OpenCode</td><td>opencode</td><td>full-auto</td><td>tokens + cost</td></tr>
+<tr><td>Codex</td><td>codex</td><td>N/A</td><td>tokens</td></tr>
+<tr><td>Cursor</td><td>agent</td><td>--force</td><td>duration</td></tr>
+<tr><td>Qwen</td><td>qwen</td><td>--approval-mode yolo</td><td>tokens</td></tr>
+<tr><td>Factory Droid</td><td>droid exec</td><td>--auto medium</td><td>duration</td></tr>
+<tr><td>GitHub Copilot</td><td>copilot</td><td>--yolo</td><td>tokens</td></tr>
+<tr><td>Gemini CLI</td><td>gemini</td><td>--yolo</td><td>tokens + cost</td></tr>
+</tbody></table>
 <p>핵심 CLI 플래그:</p>
-<p>| 플래그 | 기능 |</p>
-<p>| --- | --- |</p>
-<p>| --prd PATH | 태스크 파일/폴더 (기본: PRD.md) |</p>
-<p>| --yaml FILE | YAML 태스크 파일 |</p>
-<p>| --json FILE | JSON 태스크 파일 |</p>
-<p>| --github REPO | GitHub 이슈를 태스크 소스로 |</p>
-<p>| --model NAME | 모델 오버라이드 |</p>
-<p>| --parallel | 병렬 실행 모드 |</p>
-<p>| --max-parallel N | 최대 에이전트 수 (기본: 3) |</p>
-<p>| --sandbox | 경량 샌드박스 모드 (심볼릭 링크) |</p>
-<p>| --branch-per-task | 태스크별 브랜치 생성 |</p>
-<p>| --create-pr | PR 자동 생성 |</p>
-<p>| --draft-pr | 드래프트 PR 생성 |</p>
-<p>| --no-merge | 자동 머지 건너뛰기 |</p>
-<p>| --base-branch NAME | 베이스 브랜치 지정 |</p>
-<p>| --browser | agent-browser 활성화 |</p>
-<p>| --no-tests / --no-lint / --fast | 테스트/린트 건너뛰기 |</p>
-<p>| --max-retries N | 태스크당 재시도 횟수 (기본: 3) |</p>
-<p>| --dry-run | 미리보기 |</p>
-<p>| --init | 프로젝트 설정 초기화 |</p>
+<table><thead><tr><th>플래그</th><th>기능</th></tr></thead><tbody>
+<tr><td>--prd PATH</td><td>태스크 파일/폴더 (기본: PRD.md)</td></tr>
+<tr><td>--yaml FILE</td><td>YAML 태스크 파일</td></tr>
+<tr><td>--json FILE</td><td>JSON 태스크 파일</td></tr>
+<tr><td>--github REPO</td><td>GitHub 이슈를 태스크 소스로</td></tr>
+<tr><td>--model NAME</td><td>모델 오버라이드</td></tr>
+<tr><td>--parallel</td><td>병렬 실행 모드</td></tr>
+<tr><td>--max-parallel N</td><td>최대 에이전트 수 (기본: 3)</td></tr>
+<tr><td>--sandbox</td><td>경량 샌드박스 모드 (심볼릭 링크)</td></tr>
+<tr><td>--branch-per-task</td><td>태스크별 브랜치 생성</td></tr>
+<tr><td>--create-pr</td><td>PR 자동 생성</td></tr>
+<tr><td>--draft-pr</td><td>드래프트 PR 생성</td></tr>
+<tr><td>--no-merge</td><td>자동 머지 건너뛰기</td></tr>
+<tr><td>--base-branch NAME</td><td>베이스 브랜치 지정</td></tr>
+<tr><td>--browser</td><td>agent-browser 활성화</td></tr>
+<tr><td>--no-tests / --no-lint / --fast</td><td>테스트/린트 건너뛰기</td></tr>
+<tr><td>--max-retries N</td><td>태스크당 재시도 횟수 (기본: 3)</td></tr>
+<tr><td>--dry-run</td><td>미리보기</td></tr>
+<tr><td>--init</td><td>프로젝트 설정 초기화</td></tr>
+</tbody></table>
 <p>모델 오버라이드:</p>
 <pre><code>ralphy --model sonnet &quot;add feature&quot;                          # Claude에 sonnet
 ralphy --sonnet &quot;add feature&quot;                                # 위와 동일 (단축)
@@ -282,22 +282,22 @@ ralphy --claude &quot;add feature&quot; -- --no-permissions-prompt</code></pre>
     parallel_group: 1  # 같은 그룹 = 동시 실행
   - title: Add relationships
     parallel_group: 2  # 그룹 1 완료 후 실행</code></pre>
-<p>---</p>
+<hr>
 <h3>2.4 CodeRabbit — 코드 리뷰 &amp; 워크트리 관리</h3>
 <p>개요: CodeRabbit은 두 가지 도구로 구성된다. gtr(Git Worktree Runner)는 워크트리 생성/관리/AI 도구 실행을 위한 CLI이고, CodeRabbit SaaS는 PR 자동 리뷰 서비스이다.</p>
 <p>gtr 핵심 명령어:</p>
-<p>| 명령어 | 기능 | 사용 예시 |</p>
-<p>| --- | --- | --- |</p>
-<p>| git gtr new | 워크트리 생성 | git gtr new my-feature |</p>
-<p>| git gtr ai | AI 도구 실행 | git gtr ai my-feature --ai codex |</p>
-<p>| git gtr editor | 에디터 열기 | git gtr editor my-feature --editor cursor |</p>
-<p>| git gtr run | 워크트리에서 명령 실행 | git gtr run my-feature npm test |</p>
-<p>| git gtr list | 워크트리 목록 | git gtr list |</p>
-<p>| git gtr rm | 워크트리 삭제 | git gtr rm my-feature |</p>
-<p>| git gtr mv | 워크트리 이름 변경 | git gtr mv old new |</p>
-<p>| git gtr copy | 파일 복사 | git gtr copy my-feature -- &quot;.env*&quot; |</p>
-<p>| git gtr clean | 머지된 PR 워크트리 정리 | git gtr clean --merged |</p>
-<p>| git gtr config | 설정 관리 | git gtr config set gtr.ai.default claude |</p>
+<table><thead><tr><th>명령어</th><th>기능</th><th>사용 예시</th></tr></thead><tbody>
+<tr><td>git gtr new</td><td>워크트리 생성</td><td>git gtr new my-feature</td></tr>
+<tr><td>git gtr ai</td><td>AI 도구 실행</td><td>git gtr ai my-feature --ai codex</td></tr>
+<tr><td>git gtr editor</td><td>에디터 열기</td><td>git gtr editor my-feature --editor cursor</td></tr>
+<tr><td>git gtr run</td><td>워크트리에서 명령 실행</td><td>git gtr run my-feature npm test</td></tr>
+<tr><td>git gtr list</td><td>워크트리 목록</td><td>git gtr list</td></tr>
+<tr><td>git gtr rm</td><td>워크트리 삭제</td><td>git gtr rm my-feature</td></tr>
+<tr><td>git gtr mv</td><td>워크트리 이름 변경</td><td>git gtr mv old new</td></tr>
+<tr><td>git gtr copy</td><td>파일 복사</td><td>git gtr copy my-feature -- &quot;.env*&quot;</td></tr>
+<tr><td>git gtr clean</td><td>머지된 PR 워크트리 정리</td><td>git gtr clean --merged</td></tr>
+<tr><td>git gtr config</td><td>설정 관리</td><td>git gtr config set gtr.ai.default claude</td></tr>
+</tbody></table>
 <p>CodeRabbit SaaS 리뷰 설정 (.coderabbit.yaml):</p>
 <pre><code>reviews:
   auto_review:
@@ -315,18 +315,18 @@ chat:
   auto_reply: true
 
 language: ko</code></pre>
-<p>---</p>
+<hr>
 <h3>2.5 Langfuse — LLM 옵저버빌리티 &amp; 트레이싱</h3>
 <p>개요: Langfuse는 LLM 애플리케이션의 트레이싱, 비용 추적, 품질 평가를 제공하는 오픈소스 옵저버빌리티 플랫폼이다. 멀티 에이전트 환경에서 각 에이전트의 토큰 사용량, 응답 시간, 비용, 품질을 실시간으로 모니터링한다.</p>
 <p>핵심 기능:</p>
-<p>| 기능 | 설명 |</p>
-<p>| --- | --- |</p>
-<p>| 트레이싱 | 에이전트별 LLM 호출 추적 (입력/출력/토큰/비용) |</p>
-<p>| 비용 추적 | 모델별, 에이전트별, 태스크별 비용 집계 |</p>
-<p>| 품질 평가 | 사용자 피드백, 자동 평가 스코어 |</p>
-<p>| 대시보드 | 실시간 모니터링 대시보드 |</p>
-<p>| 세션 관리 | 에이전트 세션별 그룹화 |</p>
-<p>| 프롬프트 관리 | 프롬프트 버전 관리 및 A/B 테스트 |</p>
+<table><thead><tr><th>기능</th><th>설명</th></tr></thead><tbody>
+<tr><td>트레이싱</td><td>에이전트별 LLM 호출 추적 (입력/출력/토큰/비용)</td></tr>
+<tr><td>비용 추적</td><td>모델별, 에이전트별, 태스크별 비용 집계</td></tr>
+<tr><td>품질 평가</td><td>사용자 피드백, 자동 평가 스코어</td></tr>
+<tr><td>대시보드</td><td>실시간 모니터링 대시보드</td></tr>
+<tr><td>세션 관리</td><td>에이전트 세션별 그룹화</td></tr>
+<tr><td>프롬프트 관리</td><td>프롬프트 버전 관리 및 A/B 테스트</td></tr>
+</tbody></table>
 <p>설치 및 설정:</p>
 <pre><code># Python SDK
 pip install langfuse
@@ -368,19 +368,19 @@ def log_completion(trace, tokens_in, tokens_out, cost, status):
         }
     )
     langfuse.flush()</code></pre>
-<p>---</p>
+<hr>
 <h2>3. 설치 가이드</h2>
 <h3>3.1 사전 요구사항</h3>
-<p>| 요구사항 | 최소 버전 | 용도 |</p>
-<p>| --- | --- | --- |</p>
-<p>| macOS / Linux | — | 운영체제 |</p>
-<p>| Git | 2.20+ | 워크트리, 버전 관리 |</p>
-<p>| Go | 1.21+ | Gas Town, Beads 빌드 |</p>
-<p>| Node.js | 18+ | Ralphy CLI |</p>
-<p>| tmux | 3.0+ | Gas Town 멀티 에이전트 세션 |</p>
-<p>| Python | 3.9+ | Langfuse SDK |</p>
-<p>| Claude Code CLI | 최신 | 기본 AI 엔진 |</p>
-<p>| gh (GitHub CLI) | 최신 | PR 생성, 이슈 관리 |</p>
+<table><thead><tr><th>요구사항</th><th>최소 버전</th><th>용도</th></tr></thead><tbody>
+<tr><td>macOS / Linux</td><td>—</td><td>운영체제</td></tr>
+<tr><td>Git</td><td>2.20+</td><td>워크트리, 버전 관리</td></tr>
+<tr><td>Go</td><td>1.21+</td><td>Gas Town, Beads 빌드</td></tr>
+<tr><td>Node.js</td><td>18+</td><td>Ralphy CLI</td></tr>
+<tr><td>tmux</td><td>3.0+</td><td>Gas Town 멀티 에이전트 세션</td></tr>
+<tr><td>Python</td><td>3.9+</td><td>Langfuse SDK</td></tr>
+<tr><td>Claude Code CLI</td><td>최신</td><td>기본 AI 엔진</td></tr>
+<tr><td>gh (GitHub CLI)</td><td>최신</td><td>PR 생성, 이슈 관리</td></tr>
+</tbody></table>
 <h3>3.2 전체 설치 스크립트</h3>
 <pre><code>#!/bin/bash
 # === 에이전틱 풀스택 바이브코딩 스택 설치 스크립트 ===
@@ -438,7 +438,7 @@ pip install qwen-code
 
 # Factory Droid
 npm install -g @factory/droid</code></pre>
-<p>---</p>
+<hr>
 <h2>4. 설정 가이드</h2>
 <h3>4.1 Beads 프로젝트 설정</h3>
 <pre><code># 프로젝트 디렉토리에서 초기화
@@ -611,7 +611,7 @@ def main():
 
 if __name__ == &quot;__main__&quot;:
     main()</code></pre>
-<p>---</p>
+<hr>
 <h2>5. Skills &amp; Slash Command 통합 설계</h2>
 <h3>5.1 설계 원칙</h3>
 <p>5개 도구 모두 CLI 기반이므로, Claude Code의 Skills로 감싸고 Slash Command로 호출하는 구조를 채택한다. 상위 AI 에이전트(Mayor)가 최대한 자세한 커맨드를 작성하여 CLI를 호출하고, 결과를 JSONL 기반 상태 머신 통신 프로토콜(query.jsonl / response.jsonl / history.jsonl)로 수신한다. 각 에이전트는 response.jsonl에 status와 next_actor를 기록하여 팀 리더가 다음 행동을 결정할 수 있도록 한다.</p>
@@ -737,23 +737,23 @@ if __name__ == &quot;__main__&quot;:
 <pre><code></code></pre>
 <h3>5.7 Slash Command 매핑</h3>
 <p>Claude Code에서 사용할 수 있는 슬래시 커맨드 목록:</p>
-<p>| Slash Command | 실행되는 CLI | 용도 |</p>
-<p>|---------------|-------------|------|</p>
-<p>| <code>/beads:create</code> | <code>bd create</code> | 태스크 생성 |</p>
-<p>| <code>/beads:ready</code> | <code>bd ready</code> | 준비된 태스크 확인 |</p>
-<p>| <code>/beads:prime</code> | <code>bd prime</code> | 컨텍스트 로드 |</p>
-<p>| <code>/gt:sling</code> | <code>gt sling</code> | Polecat에 작업 할당 |</p>
-<p>| <code>/gt:convoy</code> | <code>gt convoy create</code> | Convoy 생성 |</p>
-<p>| <code>/gt:status</code> | <code>gt convoy status</code> | 진행 상황 확인 |</p>
-<p>| <code>/ralphy:run</code> | <code>ralphy</code> | 단일 태스크 실행 |</p>
-<p>| <code>/ralphy:parallel</code> | <code>ralphy --parallel</code> | 병렬 실행 |</p>
-<p>| <code>/gtr:new</code> | <code>git gtr new</code> | 워크트리 생성 |</p>
-<p>| <code>/gtr:ai</code> | <code>git gtr ai</code> | 워크트리에서 AI 실행 |</p>
-<p>| <code>/gtr:clean</code> | <code>git gtr clean --merged</code> | 워크트리 정리 |</p>
-<p>---</p>
+<table><thead><tr><th>Slash Command</th><th>실행되는 CLI</th><th>용도</th></tr></thead><tbody>
+<tr><td><code>/beads:create</code></td><td><code>bd create</code></td><td>태스크 생성</td></tr>
+<tr><td><code>/beads:ready</code></td><td><code>bd ready</code></td><td>준비된 태스크 확인</td></tr>
+<tr><td><code>/beads:prime</code></td><td><code>bd prime</code></td><td>컨텍스트 로드</td></tr>
+<tr><td><code>/gt:sling</code></td><td><code>gt sling</code></td><td>Polecat에 작업 할당</td></tr>
+<tr><td><code>/gt:convoy</code></td><td><code>gt convoy create</code></td><td>Convoy 생성</td></tr>
+<tr><td><code>/gt:status</code></td><td><code>gt convoy status</code></td><td>진행 상황 확인</td></tr>
+<tr><td><code>/ralphy:run</code></td><td><code>ralphy</code></td><td>단일 태스크 실행</td></tr>
+<tr><td><code>/ralphy:parallel</code></td><td><code>ralphy --parallel</code></td><td>병렬 실행</td></tr>
+<tr><td><code>/gtr:new</code></td><td><code>git gtr new</code></td><td>워크트리 생성</td></tr>
+<tr><td><code>/gtr:ai</code></td><td><code>git gtr ai</code></td><td>워크트리에서 AI 실행</td></tr>
+<tr><td><code>/gtr:clean</code></td><td><code>git gtr clean --merged</code></td><td>워크트리 정리</td></tr>
+</tbody></table>
+<hr>
 <h2>6. 커스텀 에이전트 설정 추가/삭제 가이드</h2>
 <h3>6.1 Ralphy에 새 엔진 추가</h3>
-<p>Ralphy는 현재 8개 엔진을 지원하며, 새 엔진이 출시되면 Ralphy 업데이트를 통해 추가된다. 기존 엔진의 **커스텀 모델**은 <code>--model</code> 플래그로 즉시 사용 가능하다.</p>
+<p>Ralphy는 현재 8개 엔진을 지원하며, 새 엔진이 출시되면 Ralphy 업데이트를 통해 추가된다. 기존 엔진의 <strong>커스텀 모델</strong>은 <code>--model</code> 플래그로 즉시 사용 가능하다.</p>
 <pre><code># 새 모델 추가 (별도 설정 불필요)
 ralphy --claude --model claude-4-opus &quot;complex architecture task&quot;
 ralphy --gemini --model gemini-3-ultra &quot;heavy analysis task&quot;
@@ -839,7 +839,7 @@ engine_roles:
     engine: opencode
     model: default
     description: &quot;코드 리뷰, 리팩토링 제안, 코드 품질&quot;</code></pre>
-<p>---</p>
+<hr>
 <h2>7. 운영 가이드</h2>
 <h3>7.1 일일 운영 워크플로우</h3>
 <p>아침 시작:</p>
@@ -925,18 +925,18 @@ ralphy --claude --model sonnet &quot;complex task&quot;   # Sonnet (중간)
 # 2. --fast 플래그로 테스트/린트 건너뛰기 (개발 중)
 ralphy --fast --parallel --prd PRD.md</code></pre>
 <h3>7.4 모니터링 체크리스트</h3>
-<p>| 항목 | 도구 | 확인 주기 | 명령어/방법 |</p>
-<p>| --- | --- | --- | --- |</p>
-<p>| 활성 Convoy 상태 | Gas Town | 수시 | gt convoy list |</p>
-<p>| 준비된 태스크 | Beads | 매 작업 전 | bd ready |</p>
-<p>| 에이전트 상태 | Gas Town | 수시 | gt agents |</p>
-<p>| 워크트리 목록 | gtr | 매일 | git gtr list |</p>
-<p>| 토큰 사용량 | Langfuse | 매일 | 대시보드 확인 |</p>
-<p>| 비용 추적 | Langfuse | 매일 | 대시보드 확인 |</p>
-<p>| 모델별 성과 | Langfuse + Beads | 주간 | bd stats --group-by=model |</p>
-<p>| 데이터 압축 | Beads | 주간 | bd admin compact |</p>
-<p>| 건강 진단 | Beads | 주간 | bd doctor |</p>
-<p>---</p>
+<table><thead><tr><th>항목</th><th>도구</th><th>확인 주기</th><th>명령어/방법</th></tr></thead><tbody>
+<tr><td>활성 Convoy 상태</td><td>Gas Town</td><td>수시</td><td>gt convoy list</td></tr>
+<tr><td>준비된 태스크</td><td>Beads</td><td>매 작업 전</td><td>bd ready</td></tr>
+<tr><td>에이전트 상태</td><td>Gas Town</td><td>수시</td><td>gt agents</td></tr>
+<tr><td>워크트리 목록</td><td>gtr</td><td>매일</td><td>git gtr list</td></tr>
+<tr><td>토큰 사용량</td><td>Langfuse</td><td>매일</td><td>대시보드 확인</td></tr>
+<tr><td>비용 추적</td><td>Langfuse</td><td>매일</td><td>대시보드 확인</td></tr>
+<tr><td>모델별 성과</td><td>Langfuse + Beads</td><td>주간</td><td>bd stats --group-by=model</td></tr>
+<tr><td>데이터 압축</td><td>Beads</td><td>주간</td><td>bd admin compact</td></tr>
+<tr><td>건강 진단</td><td>Beads</td><td>주간</td><td>bd doctor</td></tr>
+</tbody></table>
+<hr>
 <h2>8. 실전 시뮬레이션: SaaS 댓글 기능 구현</h2>
 <h3>8.1 시나리오</h3>
 <p>기존 SaaS 블로그 앱에 댓글 기능을 추가한다. 기술 스택: Next.js + Prisma + PostgreSQL + TailwindCSS.</p>
@@ -1149,18 +1149,18 @@ bd stats --group-by=model</code></pre>
 │                                                         │
 │  8. 다음 배치 → 3번으로 루프                              │
 └─────────────────────────────────────────────────────────┘</code></pre>
-<p>---</p>
+<hr>
 <h2>9. 트러블슈팅 및 FAQ</h2>
 <h3>Q1: Gas Town과 Ralphy의 역할이 겹치지 않나요?</h3>
 <p>A: 겹치는 부분이 있지만 역할이 다르다.</p>
-<p>| 기능 | Gas Town | Ralphy |</p>
-<p>| --- | --- | --- |</p>
-<p>| 오케스트레이션 (계획/조율) | 주 담당 (Mayor) | 없음 |</p>
-<p>| 에이전트 생명주기 관리 | 주 담당 (Witness) | 기본적 |</p>
-<p>| 멀티 엔진 지원 | Claude Code 내 모델 변경만 | 8개 엔진 자유 선택 |</p>
-<p>| 병렬 실행 | Convoy + Polecat | --parallel |</p>
-<p>| 영속 상태 | Git-backed (Beads) | 없음 (세션 기반) |</p>
-<p>| 스케일 | 20~30+ 에이전트 | 3~5개 적정 |</p>
+<table><thead><tr><th>기능</th><th>Gas Town</th><th>Ralphy</th></tr></thead><tbody>
+<tr><td>오케스트레이션 (계획/조율)</td><td>주 담당 (Mayor)</td><td>없음</td></tr>
+<tr><td>에이전트 생명주기 관리</td><td>주 담당 (Witness)</td><td>기본적</td></tr>
+<tr><td>멀티 엔진 지원</td><td>Claude Code 내 모델 변경만</td><td>8개 엔진 자유 선택</td></tr>
+<tr><td>병렬 실행</td><td>Convoy + Polecat</td><td>--parallel</td></tr>
+<tr><td>영속 상태</td><td>Git-backed (Beads)</td><td>없음 (세션 기반)</td></tr>
+<tr><td>스케일</td><td>20~30+ 에이전트</td><td>3~5개 적정</td></tr>
+</tbody></table>
 <p>결론: Gas Town Mayor가 전체를 지휘하고, 다른 엔진이 필요한 작업만 Ralphy에 위임하는 B안(하이브리드)이 최적이다.</p>
 <h3>Q2: Beads 없이 Gas Town만 쓸 수 있나요?</h3>
 <p>A: 아니다. Gas Town은 Beads를 태스크 관리 레이어로 필수 의존한다. gt sling으로 할당하는 작업이 Beads 이슈이고, Convoy가 추적하는 것도 Beads 이슈이다.</p>
@@ -1170,14 +1170,14 @@ bd stats --group-by=model</code></pre>
 <p>A: 가능하다. 대안으로 LangSmith(LangChain), Helicone, Braintrust 등이 있다. 다만 Langfuse는 오픈소스이고 self-hosted가 가능하여 비용과 데이터 주권 면에서 유리하다.</p>
 <h3>Q5: CodeRabbit 무료 플랜으로 충분한가요?</h3>
 <p>A: 오픈소스 프로젝트는 무료이다. 프라이빗 리포는 유료 플랜이 필요하며, Pro 플랜($12/월/사용자)부터 무제한 리뷰를 지원한다. gtr CLI는 완전 무료 오픈소스이다.</p>
-<p>---</p>
+<hr>
 <h2>부록: 도구 버전 및 링크</h2>
-<p>| 도구 | 버전 | GitHub | 라이선스 |</p>
-<p>| --- | --- | --- | --- |</p>
-<p>| Beads (bd) | 최신 | steveyegge/beads | MIT |</p>
-<p>| Gas Town (gt) | 최신 | steveyegge/gastown | MIT |</p>
-<p>| Ralphy | v4.7.2 | michaelshimeles/ralphy | MIT |</p>
-<p>| CodeRabbit gtr | v2.3.0 | coderabbitai/git-worktree-runner | Apache-2.0 |</p>
-<p>| Langfuse | 최신 | langfuse/langfuse | MIT |</p>
-<p>| CodeRabbit SaaS | — | coderabbit.ai | 상용 (OSS 무료) |</p>
-<p>| Gas Town Docs | — | docs.gastownhall.ai | — |</p><section class="sourcebox"><h2>Source Trace</h2><ul><li><code>News-Links/2026-02-17 에이전틱 풀스택 바이브코딩 토탈 가이드.md</code></li></ul></section><div class="footer">Generated from Obsidian Wikis/ai-agent. Raw markdown files are not included in this repository; their reviewed body content is rendered into these public wiki pages.</div></main></body></html>
+<table><thead><tr><th>도구</th><th>버전</th><th>GitHub</th><th>라이선스</th></tr></thead><tbody>
+<tr><td>Beads (bd)</td><td>최신</td><td>steveyegge/beads</td><td>MIT</td></tr>
+<tr><td>Gas Town (gt)</td><td>최신</td><td>steveyegge/gastown</td><td>MIT</td></tr>
+<tr><td>Ralphy</td><td>v4.7.2</td><td>michaelshimeles/ralphy</td><td>MIT</td></tr>
+<tr><td>CodeRabbit gtr</td><td>v2.3.0</td><td>coderabbitai/git-worktree-runner</td><td>Apache-2.0</td></tr>
+<tr><td>Langfuse</td><td>최신</td><td>langfuse/langfuse</td><td>MIT</td></tr>
+<tr><td>CodeRabbit SaaS</td><td>—</td><td>coderabbit.ai</td><td>상용 (OSS 무료)</td></tr>
+<tr><td>Gas Town Docs</td><td>—</td><td>docs.gastownhall.ai</td><td>—</td></tr>
+</tbody></table><section class="sourcebox"><h2>Source Trace</h2><ul><li><code>News-Links/2026-02-17 에이전틱 풀스택 바이브코딩 토탈 가이드.md</code></li></ul></section><div class="footer">Generated from Obsidian Wikis/ai-agent. Raw markdown files are not included in this repository; their reviewed body content is rendered into these public wiki pages.</div></main></body></html>

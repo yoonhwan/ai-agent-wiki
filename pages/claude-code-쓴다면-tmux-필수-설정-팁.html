@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Claude Code 쓴다면 tmux 필수 설정 팁 · Jarvis Wiki</title><link rel="stylesheet" href="../assets/style.css"></head><body><main class="wrap"><header><a class="badge" href="../index.html?v=20260504-184235-KST">Jarvis Wiki / ai-agent</a><h1>Claude Code 쓴다면 tmux 필수 설정 팁</h1><p class="muted">Public GitHub Pages export · full wiki body rendered · raw files excluded</p></header><h1>Claude Code 쓴다면 tmux 필수 설정 팁</h1>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Claude Code 쓴다면 tmux 필수 설정 팁 · Jarvis Wiki</title><link rel="stylesheet" href="../assets/style.css"></head><body><main class="wrap"><header><a class="badge" href="../index.html?v=20260504-203312-KST">Jarvis Wiki / ai-agent</a><h1>Claude Code 쓴다면 tmux 필수 설정 팁</h1><p class="muted">Public GitHub Pages export · full wiki body rendered · raw files excluded</p></header><h1>Claude Code 쓴다면 tmux 필수 설정 팁</h1>
 <blockquote>Source candidate from <code>News-Links/2026-02-24 Claude Code tmux 필수 설정 팁.md</code></blockquote>
 <h2>Source Content</h2>
 <h1>Claude Code 쓴다면 tmux 필수 설정 팁</h1>
@@ -14,11 +14,19 @@
 <pre><code># ~/.tmux.conf에 추가
 set -g mouse on
 set-option -g history-limit 50000</code></pre>
-<p>1. **<code>set -g mouse on</code>** — 마우스 지원 활성화</p>
-<p>   - 설정 안 하면 창간 이동, 위로 스크롤을 마우스로 할 수 없음</p>
-<p>2. **<code>set-option -g history-limit 50000</code>** — 스크롤 히스토리 확장</p>
-<p>   - 기본값 2000줄 → 50000줄로 확장</p>
-<p>   - 긴 작업 시 히스토리를 못 보는 경우 방지</p>
+<ol>
+<li><strong><code>set -g mouse on</code></strong> — 마우스 지원 활성화</li>
+<ul>
+<li>설정 안 하면 창간 이동, 위로 스크롤을 마우스로 할 수 없음</li>
+</ul>
+</ol>
+<ol>
+<li><strong><code>set-option -g history-limit 50000</code></strong> — 스크롤 히스토리 확장</li>
+<ul>
+<li>기본값 2000줄 → 50000줄로 확장</li>
+<li>긴 작업 시 히스토리를 못 보는 경우 방지</li>
+</ul>
+</ol>
 <h3>댓글 추천: oh-my-tmux</h3>
 <ul>
 <li><a href="https://www.threads.com/@shydecl">@shydecl</a> 추천: <a href="https://github.com/gpakosz/.tmux">oh-my-tmux (gpakosz/.tmux)</a></li>
