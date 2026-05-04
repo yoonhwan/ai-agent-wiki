@@ -1,0 +1,56 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>⚡ ZVec — 알리바바의 초경량 인프로세스 벡터 데이터베이스 · Jarvis Wiki</title><link rel="stylesheet" href="../assets/style.css"></head><body><main class="wrap"><header><a class="badge" href="../index.html?v=20260504-181559-KST">Jarvis Wiki / ai-agent</a><h1>⚡ ZVec — 알리바바의 초경량 인프로세스 벡터 데이터베이스</h1><p class="muted">Public GitHub Pages export · full wiki body rendered · raw files excluded</p></header><h1>⚡ ZVec — 알리바바의 초경량 인프로세스 벡터 데이터베이스</h1>
+<blockquote>Source candidate from <code>News-Links/2026-02-17 ZVec - 알리바바의 초경량 벡터 DB.md</code></blockquote>
+<h2>Source Content</h2>
+<h1>⚡ ZVec — 알리바바의 초경량 인프로세스 벡터 데이터베이스</h1>
+<blockquote>**출처**: <a href="https://www.threads.com/@feelfree_ai/post/DU2mvyvElUu">@feelfree_ai (Threads)</a></blockquote>
+<blockquote>**날짜**: 2026-02-17</blockquote>
+<blockquote>**카테고리**: AI / Database / Vector DB / Open Source</blockquote>
+<p>---</p>
+<h2>핵심 요약</h2>
+<p>알리바바에서 오픈소스로 공개한 **&quot;벡터 DB계의 SQLite&quot;**. 서버 없이 앱/코드에 바로 내장(in-process)해서 쓸 수 있는 초경량 벡터 데이터베이스. 알리바바의 실전 검증된 **Proxima 검색 엔진** 기반.</p>
+<p>---</p>
+<h2>✨ 핵심 매력 포인트</h2>
+<ul>
+<li>⚡️ **미친 속도**: 수십억 개 벡터도 밀리초(ms) 단위 검색</li>
+<li>🛠️ **초간단 셋업**: 서버/설정 불필요, 설치 후 1초 만에 검색 시작</li>
+<li>🔍 **하이브리드 검색**: Dense + Sparse 벡터 + 필터링 결합 정밀 검색</li>
+<li>💻 **어디서든 작동**: Jupyter 노트북, 서버, CLI, 엣지 디바이스</li>
+</ul>
+<p>---</p>
+<h2>📊 성능 벤치마크 (QPS, 높을수록 좋음)</h2>
+<p>| DB | QPS |</p>
+<p>|----|-----|</p>
+<p>| **ZVec-16c64g-v0.1** | **8,475** |</p>
+<p>| ZilizCloud-8cu-perf | 3,957 |</p>
+<p>| OpenSearch-16c128g-force_merge | 1,611 |</p>
+<p>| ElasticCloud-8c60g-force_merge | 1,520 |</p>
+<p>| Pinecone-p2.8-8node | 1,131 |</p>
+<p>| OpenSearch-16c128g | 505.7 |</p>
+<p>| QdrantCloud-16c64g | 446.9 |</p>
+<p>| Milvus-16c64g-sq8 | 437.2 |</p>
+<p>| ElasticCloud-8c60g | 376.4 |</p>
+<p>| Pinecone-p2.x1-8node | 303.2 |</p>
+<p>| S3Vectors | 194.8 |</p>
+<p>| Milvus-16c64g-hnsw | 178.7 |</p>
+<p>| QdrantCloud-4c16g-5node | 110.2 |</p>
+<blockquote>ZVec이 2위 대비 **2배 이상** 빠른 압도적 성능</blockquote>
+<p>---</p>
+<h2>📋 스펙</h2>
+<ul>
+<li>**GitHub**: <a href="https://github.com/alibaba/zvec">alibaba/zvec</a></li>
+<li>**라이선스**: Apache 2.0</li>
+<li>**버전**: v0.2.0</li>
+<li>**Python**: 3.10, 3.11, 3.12 지원</li>
+<li>**플랫폼**: Linux x64, Linux ARM64, Mac ARM64</li>
+<li>**코드 커버리지**: 76%</li>
+</ul>
+<p>---</p>
+<h2>🎯 추천 사용처</h2>
+<ul>
+<li>RAG 파이프라인 경량 구축</li>
+<li>엣지(Edge) AI 앱 구동</li>
+<li>Jupyter 노트북에서 빠른 벡터 검색 프로토타이핑</li>
+<li>서버리스/임베디드 환경</li>
+</ul>
+<p>---</p>
+<p>#ZVec #벡터DB #알리바바 #오픈소스 #RAG #VectorDatabase #SQLite #인프로세스 #AI인프라 #Proxima</p><section class="sourcebox"><h2>Source Trace</h2><ul><li><code>News-Links/2026-02-17 ZVec - 알리바바의 초경량 벡터 DB.md</code></li></ul></section><div class="footer">Generated from Obsidian Wikis/ai-agent. Raw markdown files are not included in this repository; their reviewed body content is rendered into these public wiki pages.</div></main></body></html>
