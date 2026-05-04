@@ -1,7 +1,8 @@
 # AI Agent Wiki
 
-Public GitHub Pages export of sanitized Obsidian `Wikis/ai-agent/wiki` pages.
+Public GitHub Pages export of sanitized Obsidian `Wikis/ai-agent` pages.
 
-- Raw/source notes are excluded.
-- Generated: 2026-05-04T16:29:35.516696
+- Raw markdown files are excluded.
+- Full reviewed body content is rendered into HTML pages.
+- Generated: 2026-05-04T16:40:14.889975
 - Pages: 3

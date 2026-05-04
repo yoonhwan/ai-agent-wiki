@@ -1,22 +1,26 @@
 {
-  "generated_at": "2026-05-04T16:29:35.516785",
+  "generated_at": "2026-05-04T16:40:14.890079",
   "source": "Wikis/ai-agent/wiki",
-  "raw_sources_included": false,
+  "raw_markdown_files_included": false,
+  "full_body_rendered": true,
   "pages": [
     {
       "title": "HyperFrames — HTML로 영상 만드는 AI 에이전트용 렌더링 프레임워크",
       "source": "Wikis/ai-agent/wiki/concepts/HyperFrames — HTML로 영상 만드는 AI 에이전트용 렌더링 프레임워크.md",
-      "url": "pages/hyperframes-html로-영상-만드는-ai-에이전트용-렌더링-프레임워크.html"
+      "url": "pages/hyperframes-html로-영상-만드는-ai-에이전트용-렌더링-프레임워크.html",
+      "raw_body_merged": true
     },
     {
       "title": "TradingView Screener MCP 연동 — AI 에이전트가 조건 검색을 직접 수행",
       "source": "Wikis/ai-agent/wiki/concepts/TradingView Screener MCP 연동 — AI 에이전트가 조건 검색을 직접 수행.md",
-      "url": "pages/tradingview-screener-mcp-연동-ai-에이전트가-조건-검색을-직접-수행.html"
+      "url": "pages/tradingview-screener-mcp-연동-ai-에이전트가-조건-검색을-직접-수행.html",
+      "raw_body_merged": false
     },
     {
       "title": "바이브코딩 프로젝트 무료티어 초과와 인프라 최적화",
       "source": "Wikis/ai-agent/wiki/concepts/바이브코딩 프로젝트 무료티어 초과와 인프라 최적화.md",
-      "url": "pages/바이브코딩-프로젝트-무료티어-초과와-인프라-최적화.html"
+      "url": "pages/바이브코딩-프로젝트-무료티어-초과와-인프라-최적화.html",
+      "raw_body_merged": true
     }
   ]
 }
