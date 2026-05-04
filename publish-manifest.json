@@ -1,8 +1,9 @@
 {
-  "generated_at": "2026-05-04T16:40:14.890079",
+  "generated_at": "2026-05-04T16:52:49.813080",
   "source": "Wikis/ai-agent/wiki",
   "raw_markdown_files_included": false,
   "full_body_rendered": true,
+  "version": "d2a0cc2",
   "pages": [
     {
       "title": "HyperFrames — HTML로 영상 만드는 AI 에이전트용 렌더링 프레임워크",
